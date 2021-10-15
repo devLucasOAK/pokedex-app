@@ -1,0 +1,15 @@
+<div class="card-group">
+    <div class="card" *ngFor="let pokemon of pokelist">
+        <img [src]="pokemon.sprites.front_default" alt="">
+        <p>
+            {{ pokemon.name | uppercase }}
+        </p>
+        <br>
+        <p>
+            <b>Type: </b> {{ pokemon.types[0].type.name }}
+        </p>
+        <p>
+            <b>HP: </b>{{ pokemon.stats[0].base_stat }}
+        </p>
+    </div>
+</div>
