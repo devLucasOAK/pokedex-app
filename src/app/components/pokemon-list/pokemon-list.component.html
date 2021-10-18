@@ -1,5 +1,5 @@
 <div class="card-group">
-    <div class="card" *ngFor="let pokemon of pokelist">
+    <div class="card" *ngFor="let pokemon of pokelist | paginate: { itemsPerPage: 20, currentPage: offset, totalItems: totalPokemons}">
         <img [src]="pokemon.sprites.front_default" alt="">
         <p>
             {{ pokemon.name | uppercase }}
@@ -13,3 +13,5 @@
         </p>
     </div>
 </div>
+
+<pagination-controls (pageChange)="offset = $event; pokelist =[]; getPokemons()"></pagination-controls>

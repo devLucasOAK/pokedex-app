@@ -9,6 +9,10 @@ import { PokemonService } from 'src/app/service/pokemon.service';
 export class PokemonListComponent implements OnInit {
 
   pokelist: any[] = []
+  
+  offset: number = 1
+  limit: number = 20
+  totalPokemons: number = 0;
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -17,8 +21,10 @@ export class PokemonListComponent implements OnInit {
   }
 
   getPokemons(){
-    this.pokemonService.getPokemons().subscribe(
+    this.pokemonService.getPokemons(this.limit, (this.offset * this.limit) - this.limit).subscribe(
       (res) => {
+        this.totalPokemons = res.count
+        
         res.results.forEach((result: any) => {
           this.pokemonService.getPokemonByName(result.name).subscribe(
             (uniqres) => {
@@ -26,7 +32,6 @@ export class PokemonListComponent implements OnInit {
             }
           )
         });
-
         console.log(this.pokelist)
       }
     )
